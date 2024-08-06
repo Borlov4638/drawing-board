@@ -4,11 +4,12 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { ImageEntityRepository } from './image.repository';
-import { ImageEntity } from './entities/image.entity';
-import { ImageS3Repository } from './image-s3.repository';
-import { METADATA_ERRORS } from './constants';
 import { EntityManager } from 'typeorm';
+
+import { METADATA_ERRORS } from './constants';
+import { ImageEntity } from './entities/image.entity';
+import { ImageEntityRepository } from './image.repository';
+import { ImageS3Repository } from './image-s3.repository';
 
 @Injectable()
 export class ImageService {

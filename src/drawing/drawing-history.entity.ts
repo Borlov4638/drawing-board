@@ -1,3 +1,4 @@
+import { ImageEntity } from 'src/images/entities/image.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,8 +8,8 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
 import { DrawingPointMessage } from './types/drawing-brush.type';
-import { ImageEntity } from 'src/images/entities/image.entity';
 
 @Entity('drawing_history')
 export class DrawingHistoryEntity {

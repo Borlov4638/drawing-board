@@ -1,8 +1,9 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ImageEntity } from './entities/image.entity';
 import { Repository } from 'typeorm';
+
 import { METADATA_ERRORS } from './constants';
+import { ImageEntity } from './entities/image.entity';
 
 @Injectable()
 export class ImageEntityRepository {

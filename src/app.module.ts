@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ImageModule } from './images/image.module';
+import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { TypeormConfigService } from './config/pg.config';
 import { DrawingModule } from './drawing/drawing.module';
-import { ScheduleModule } from '@nestjs/schedule';
+import { ImageModule } from './images/image.module';
 
 @Module({
   imports: [

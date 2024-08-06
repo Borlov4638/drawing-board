@@ -11,8 +11,10 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { ImageService } from './image.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+
+import { ImageEntity } from './entities/image.entity';
+import { ImageService } from './image.service';
 
 @Controller('image')
 export class ImageController {
@@ -31,12 +33,12 @@ export class ImageController {
       }),
     )
     file: Express.Multer.File,
-  ) {
+  ): Promise<ImageEntity> {
     return this.imageService.addOne(file);
   }
 
   @Get(':id')
-  async getImageMetadata(@Param('id') id: string) {
+  async getImageMetadata(@Param('id') id: string): Promise<ImageEntity> {
     return await this.imageService.getOneById(id);
   }
 }

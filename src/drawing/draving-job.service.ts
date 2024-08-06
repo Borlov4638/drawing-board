@@ -1,21 +1,25 @@
-import { Cron, CronExpression } from '@nestjs/schedule';
-import { DrawingGateway } from './drawing.gateway';
 import { Injectable } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
+
 import { DrawingHistoryRepository } from './drawing-history.repository';
+import { RoomService } from './room.service';
 
 @Injectable()
 export class DrawingJobService {
   constructor(
-    private drawingGateway: DrawingGateway,
+    private roomService: RoomService,
     private drawingHistoryRepository: DrawingHistoryRepository,
   ) {}
   //TODO: сделать так чтобы job не наслаивались job.stop()/start()
   @Cron(CronExpression.EVERY_SECOND)
-  saveDrawingHisrory() {
-    const drawingHistory = this.drawingGateway.roomDrawingHistory;
+  async saveDrawingHisrory(): Promise<void> {
+    const drawingHistory = this.roomService.roomDrawingHistory;
 
-    drawingHistory.forEach((drawingPointHistory, room) => {
-      this.drawingHistoryRepository.saveHistory(drawingPointHistory, room);
+    drawingHistory.forEach(async (drawingPointHistory, room) => {
+      await this.drawingHistoryRepository.saveHistory(
+        drawingPointHistory,
+        room,
+      );
     });
   }
 }

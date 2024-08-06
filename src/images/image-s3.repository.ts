@@ -1,21 +1,23 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { AWS_ERRORS } from './constants';
 import {
-  S3Client,
   PutObjectCommand,
   PutObjectCommandOutput,
+  S3Client,
 } from '@aws-sdk/client-s3';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+
+import { AWS_ERRORS } from './constants';
 
 @Injectable()
 export class ImageS3Repository {
-  constructor(private configService: ConfigService) {}
   private logger = new Logger(ImageS3Repository.name);
 
   private s3 = new S3Client({
     region: this.configService.getOrThrow<string>('AWS_REGION'),
     endpoint: this.configService.getOrThrow<string>('AWS_CLOUD_URL'),
   });
+
+  constructor(private configService: ConfigService) {}
 
   async uploadOne(key: string, data: Buffer): Promise<PutObjectCommandOutput> {
     return this.s3
